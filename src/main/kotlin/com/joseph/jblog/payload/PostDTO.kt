@@ -9,5 +9,6 @@ class PostDTO {
     var title: String? =null
     var description: String?=null
     var content: String?=null
+    var comments: Set<CommentDTO>? = null
 
 }

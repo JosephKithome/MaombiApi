@@ -6,6 +6,7 @@ import com.joseph.jblog.payload.CommentDTO
 import com.joseph.jblog.repository.CommentRepository
 import com.joseph.jblog.repository.PrayerRepository
 import com.joseph.jblog.service.CommentService
+import org.modelmapper.ModelMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
@@ -16,6 +17,8 @@ class CommentServiceImpl: CommentService {
     @Autowired lateinit var commentRepository: CommentRepository
 
     @Autowired lateinit var  prayerRepository: PrayerRepository
+
+    final  var modelMapper: ModelMapper = ModelMapper()
 
     override fun createComment(postId: Long, req: CommentDTO): CommentDTO {
         val comment: Comment = mapToEntity(req)
@@ -98,11 +101,14 @@ class CommentServiceImpl: CommentService {
 
     //convert an entity into a dto
     fun mapToDTo(comment: Comment): CommentDTO{
-       val commentDTO = CommentDTO()
-       commentDTO.id = comment.id
-       commentDTO.name = comment.name
-       commentDTO.email = comment.email
-       commentDTO.body = comment.body
+//       val commentDTO = CommentDTO()
+//       commentDTO.id = comment.id
+//       commentDTO.name = comment.name
+//       commentDTO.email = comment.email
+//       commentDTO.body = comment.body
+
+        //Using a model mapper
+        val commentDTO = modelMapper.map(comment, CommentDTO::class.java)
         return commentDTO
     }
 
@@ -111,11 +117,11 @@ class CommentServiceImpl: CommentService {
     // Note that: you can create a constructor in the entity class
     //to serve this purpose
     fun mapToEntity(commentDTO: CommentDTO): Comment{
-        val comment = Comment()
-        comment.id = commentDTO.id
-        comment.name = commentDTO.name
-        comment.email = commentDTO.email
-        comment.body = commentDTO.body
+        val comment = modelMapper.map(commentDTO,Comment::class.java)
+//        comment.id = commentDTO.id
+//        comment.name = commentDTO.name
+//        comment.email = commentDTO.email
+//        comment.body = commentDTO.body
 
         return  comment
     }

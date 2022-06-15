@@ -1,11 +1,15 @@
 package com.joseph.jblog.Impl
 
+import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.joseph.jblog.entity.Prayer
+import com.joseph.jblog.exception.ResourceNotFoundException
 import com.joseph.jblog.payload.PostDTO
 import com.joseph.jblog.payload.PostResponse
 import com.joseph.jblog.repository.PrayerRepository
 import com.joseph.jblog.service.PrayerService
 import com.joseph.jblog.utils.LogHelper
+import org.modelmapper.ModelMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
@@ -20,6 +24,14 @@ class PrayerServiceImpl : PrayerService {
 
     @Autowired
     private lateinit var prayerRepository: PrayerRepository
+
+    final  var modelMapper: ModelMapper = ModelMapper()
+
+
+    final var mapper = ObjectMapper()
+    init {
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL)
+    }
 
     override fun createPost(postDTo: PostDTO): PostDTO {
         //
@@ -54,8 +66,9 @@ class PrayerServiceImpl : PrayerService {
         return postResponse
     }
 
-    override fun getPostById(id: Long): Optional<Prayer> {
-        return prayerRepository.findById(id)
+    override fun getPostById(id: Long): Prayer {
+
+        return prayerRepository.findById(id).orElseThrow { ResourceNotFoundException("Post with id", "$id", id) }
     }
 
     override fun updatePost(id: Long, postDTO: PostDTO): PostDTO {
@@ -92,20 +105,27 @@ class PrayerServiceImpl : PrayerService {
     }
 
     private fun mapToDTO(prayerResp: Prayer): PostDTO {
-        var postDTo: PostDTO = PostDTO()
-        postDTo.title = prayerResp.title
-        postDTo.description = prayerResp.description
-        postDTo.content = prayerResp.content
-        postDTo.id = prayerResp.id!!.toInt()
+//        var postDTo: PostDTO = PostDTO()
+//        postDTo.title = prayerResp.title
+//        postDTo.description = prayerResp.description
+//        postDTo.content = prayerResp.content
+//        postDTo.id = prayerResp.id!!.toInt()
+
+        //Using Mappers
+        var postDTo: PostDTO = modelMapper.map(prayerResp,PostDTO::class.java)
         return postDTo
     }
 
     private fun mapToEntity( postDTo: PostDTO): Prayer {
         //Convert DTO to entity
-        var prayer: Prayer = Prayer()
-        prayer.title = postDTo.title
-        prayer.description = postDTo.description
-        prayer.content = postDTo.content
+//        var prayer: Prayer = Prayer()
+//        prayer.title = postDTo.title
+//        prayer.description = postDTo.description
+//        prayer.content = postDTo.content
+
+        //Using a model mapper
+
+        var prayer = modelMapper.map(postDTo, Prayer::class.java)
         return prayer
     }
 }

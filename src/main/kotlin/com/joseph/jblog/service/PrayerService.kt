@@ -10,7 +10,7 @@ interface PrayerService {
 
     fun createPost(postDTo: PostDTO): PostDTO;
     fun getAllPosts(pageNo: Int, pageSize: Int, sortBy: String, sortDir: String): PostResponse
-    fun getPostById(id: Long): Optional<Prayer>
+    fun getPostById(id: Long): Prayer
     fun updatePost(id: Long, postDTO: PostDTO): PostDTO
     fun deletePost(id: Long)
 }

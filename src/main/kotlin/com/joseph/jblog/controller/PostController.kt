@@ -47,7 +47,7 @@ class PostController {
     //
     //Get post by id
     @GetMapping("/{id}")
-    fun getPostById(@PathVariable("id") id: Long): ResponseEntity<Optional<Prayer>>{
+    fun getPostById(@PathVariable("id") id: Long): ResponseEntity<Prayer>{
         return  ResponseEntity(prayerService.getPostById(id), HttpStatus.OK)
     }
     //
