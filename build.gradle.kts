@@ -38,7 +38,13 @@ dependencies {
 	testImplementation("org.springframework.security:spring-security-test")
 
 	implementation("org.mariadb.jdbc:mariadb-java-client:2.1.2")
+
+	// This is used to map entities into dtos
 	implementation ("org.modelmapper:modelmapper:2.1.1")
+
+	//This is used to validate all model fields
+	implementation ("org.springframework.boot:spring-boot-starter-validation:2.7.0")
+
 
 
 }

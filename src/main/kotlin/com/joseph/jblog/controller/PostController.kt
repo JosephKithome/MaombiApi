@@ -7,6 +7,7 @@ import com.joseph.jblog.service.PrayerService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import java.util.*
+import javax.validation.Valid
 
 
 @RestController
@@ -28,8 +30,9 @@ class PostController {
 
     //Instance of AppConstants class
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
-    fun createPost(@RequestBody postDTO: PostDTO):  ResponseEntity<PostDTO>{
+    fun createPost(@Valid @RequestBody postDTO: PostDTO):  ResponseEntity<PostDTO>{
         return ResponseEntity(prayerService.createPost(postDTO), HttpStatus.CREATED)
     }
 
@@ -52,12 +55,14 @@ class PostController {
     }
     //
     //Update a single post
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     fun updatePost(@PathVariable("id")id: Long, @RequestBody postDTO: PostDTO): ResponseEntity<PostDTO>{
         return ResponseEntity(prayerService.updatePost(id,postDTO), HttpStatus.OK)
     }
     //
     //Delete Post Api detail
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     fun deletePost(@PathVariable("id") id: Long):ResponseEntity<String>{
         prayerService.deletePost(id)

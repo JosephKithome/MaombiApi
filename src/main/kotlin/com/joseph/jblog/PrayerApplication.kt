@@ -7,7 +7,8 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
 
-@SpringBootApplication(exclude = [SecurityAutoConfiguration::class])
+@SpringBootApplication()
+//@SpringBootApplication(exclude = [SecurityAutoConfiguration::class])
 
 class JbLogApplication
 
