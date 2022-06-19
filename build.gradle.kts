@@ -45,6 +45,11 @@ dependencies {
 	//This is used to validate all model fields
 	implementation ("org.springframework.boot:spring-boot-starter-validation:2.7.0")
 
+	//Adds the use of jason web token authentication
+	implementation ("com.auth0:java-jwt:3.19.2")
+	implementation ("io.jsonwebtoken:jjwt:0.9.1")
+
+
 
 
 }
