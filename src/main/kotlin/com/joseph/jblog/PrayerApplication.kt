@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Bean
 
 class JbLogApplication
 
-@Autowired lateinit var modelMapper: ModelMapper
 
 fun main(args: Array<String>) {
 	runApplication<JbLogApplication>(*args)
