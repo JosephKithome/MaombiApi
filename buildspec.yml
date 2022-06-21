@@ -6,7 +6,6 @@ phases:
       java: corretto17
   build:
     commands:
-      - gradle wrapper --gradle-version 2.11
       - ./gradlew clean build
   post_build:
     commands:
