@@ -6,7 +6,7 @@ phases:
       java: corretto8
   build:
     commands:
-      - gradlew clean build
+      - ./gradlew clean build
   post_build:
     commands:
       - echo Build completed
