@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-sudo rm -rf /home/ec2-user/server
+sudo mv -rf /home/ec2-user/server /home/ec2-user/baks/server01
