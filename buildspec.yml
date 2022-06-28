@@ -10,14 +10,13 @@ phases:
       - ./gradlew bootJar
       - cd ./build/libs
       - ls
-      - mv jblog-0.0.1-SNAPSHOT.jar /home/ec2-user/server/jblog-0.0.1-SNAPSHOT.jar
   post_build:
     commands:
       - echo Build completed
 artifacts:
   files:
     - ls
-    - libs/*.jar
+    - libs/jblog-0.0.1-SNAPSHOT.jar
     - scripts/*.sh
     - appspec.yml
   discard-paths: yes
