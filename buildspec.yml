@@ -6,6 +6,7 @@ phases:
       java: corretto11
   build:
     commands:
+      - ls
       - ./gradlew bootJar
       - cd ./build/libs
       - ls
