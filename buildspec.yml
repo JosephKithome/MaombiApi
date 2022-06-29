@@ -19,4 +19,5 @@ artifacts:
     - build/libs/*.jar
     - scripts/*.sh
     - appspec.yml
+    - Procfile
   discard-paths: yes
