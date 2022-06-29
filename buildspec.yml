@@ -16,7 +16,7 @@ phases:
 artifacts:
   files:
     - ls
-    - libs/*.jar
+    - build/libs/*.jar
     - scripts/*.sh
     - appspec.yml
   discard-paths: yes
