@@ -1,1 +1,1 @@
-/bin/sh server_start.sh
+web: java -jar -Dserver.port=8080 *.jar
