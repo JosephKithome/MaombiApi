@@ -1,18 +1,14 @@
 package com.joseph.jblog.payload
 
-import io.swagger.annotations.ApiModel
-import io.swagger.annotations.ApiModelProperty
 import lombok.Data
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.Size
 
 
-@ApiModel("Post model")
 @Data
-class PostDTO {
-    @ApiModelProperty(value="Post id")
-    var id: Int? = null
-    @ApiModelProperty(value="Post title")
+class PostDTOV2 {
+    var id: Long? = null
+
     @NotEmpty
     @Size(min = 2)
     var title: String? =null
@@ -23,5 +19,6 @@ class PostDTO {
     @NotEmpty
     var content: String?=null
     var comments: Set<CommentDTO>? = null
+    var tags: MutableList<String>? =null
 
 }

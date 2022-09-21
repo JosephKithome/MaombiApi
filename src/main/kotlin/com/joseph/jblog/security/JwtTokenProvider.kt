@@ -11,46 +11,48 @@ import java.util.*
 @Component
 class JwtTokenProvider {
     @Value("\${app.jwt-secret}")
-    private val jwt_secret: String? = null
+    private val jwtSecret: String? = null
 
     @Value("\${app.jwt-expiration-milliseconds}")
-    private val jwt_exp_date: String? = null
+    private val jwtExpirationInMs = 0
 
     // generate token
     fun generateToken(authentication: Authentication): String {
         val username = authentication.name
         val currentDate = Date()
-        val expireDate = Date(currentDate.time.toString() + jwt_exp_date)
+        val expireDate = Date(currentDate.time + jwtExpirationInMs)
         return Jwts.builder()
             .setSubject(username)
             .setIssuedAt(Date())
             .setExpiration(expireDate)
-            .signWith(SignatureAlgorithm.ES512, jwt_secret)
+            .signWith(SignatureAlgorithm.HS512, jwtSecret)
             .compact()
     }
 
     // get username from the token
-    fun getUsernameFromJwt(token: String?): String {
+    fun getUsernameFromJWT(token: String?): String {
         val claims = Jwts.parser()
-            .setSigningKey(jwt_secret)
+            .setSigningKey(jwtSecret)
             .parseClaimsJws(token)
             .body
         return claims.subject
     }
 
-    //validate jwt token
+    // validate JWT token
     fun validateToken(token: String?): Boolean {
         return try {
-            Jwts.parser().setSigningKey(jwt_secret).parseClaimsJws(token)
+            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token)
             true
-        } catch (exception: MalformedJwtException) {
-            throw PrayerAPIException(HttpStatus.BAD_REQUEST, "Invalid Jwt token")
-        } catch (exception: ExpiredJwtException) {
-            throw PrayerAPIException(HttpStatus.BAD_REQUEST, "Expired Jwt token")
-        } catch (illegalArgumentException: IllegalArgumentException) {
-            throw PrayerAPIException(HttpStatus.BAD_REQUEST, "Jwt class string is empty")
-        } catch (signatureException: SignatureException) {
-            throw PrayerAPIException(HttpStatus.BAD_REQUEST, "Invalid Jwt signature")
+        } catch (ex: SignatureException) {
+            throw PrayerAPIException(HttpStatus.BAD_REQUEST, "Invalid JWT signature")
+        } catch (ex: MalformedJwtException) {
+            throw PrayerAPIException(HttpStatus.BAD_REQUEST, "Invalid JWT token")
+        } catch (ex: ExpiredJwtException) {
+            throw PrayerAPIException(HttpStatus.BAD_REQUEST, "Expired JWT token")
+        } catch (ex: UnsupportedJwtException) {
+            throw PrayerAPIException(HttpStatus.BAD_REQUEST, "Unsupported JWT token")
+        } catch (ex: IllegalArgumentException) {
+            throw PrayerAPIException(HttpStatus.BAD_REQUEST, "JWT claims string is empty.")
         }
     }
 }

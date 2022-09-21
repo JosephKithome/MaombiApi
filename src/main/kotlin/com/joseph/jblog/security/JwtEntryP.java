@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-public class Jwt implements AuthenticationEntryPoint {
+public class JwtEntryP implements AuthenticationEntryPoint {
     @Override
     public void commence(
             HttpServletRequest request,

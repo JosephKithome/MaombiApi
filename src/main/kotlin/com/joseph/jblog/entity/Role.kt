@@ -19,5 +19,9 @@ class Role {
     val id:Long? =null
 
     @Column(name ="name")
-    val name: String?=null
+    var name: String?=null
+
+        get() = field
+    set(value) {field=value}
+
 }

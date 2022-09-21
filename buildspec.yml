@@ -1,22 +1,22 @@
-version: 0.2
-
-phases:
-  install:
-    runtime-versions:
-      java: corretto11
-  build:
-    commands:
-      - ls
-      - ./gradlew bootJar
-      - cd ./build/libs
-      - ls
-  post_build:
-    commands:
-      - echo Build completed
-artifacts:
-  files:
-    - ls
-    - build/libs/*.jar
-    - scripts/*.sh
-    - appspec.yml
-  discard-paths: yes
+#version: 0.2
+#
+#phases:
+#  install:
+#    runtime-versions:
+#      java: corretto11
+#  build:
+#    commands:
+#      - ls
+#      - ./gradlew bootJar
+#      - cd ./build/libs
+#      - ls
+#  post_build:
+#    commands:
+#      - echo Build completed
+#artifacts:
+#  files:
+#    - ls
+#    - build/libs/*.jar
+#    - scripts/*.sh
+#    - appspec.yml
+#  discard-paths: yes

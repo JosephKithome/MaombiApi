@@ -7,6 +7,6 @@
 //    @JvmStatic
 //    fun main(args: Array<String>) {
 //        val passwordEncoder: PasswordEncoder = BCryptPasswordEncoder()
-//        println(passwordEncoder.encode("password"))
+//        println(passwordEncoder.encode("kakuni123"))
 //    }
 //}

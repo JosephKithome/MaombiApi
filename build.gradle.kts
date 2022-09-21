@@ -45,9 +45,19 @@ dependencies {
 	//This is used to validate all model fields
 	implementation ("org.springframework.boot:spring-boot-starter-validation:2.7.0")
 
-	//Adds the use of jason web token authentication
+	//Adds the use of json web token authentication
 	implementation ("com.auth0:java-jwt:3.19.2")
 	implementation ("io.jsonwebtoken:jjwt:0.9.1")
+
+
+	//Swagger
+	// https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter
+	implementation("io.springfox:springfox-boot-starter:3.0.0")
+	implementation("io.springfox:springfox-swagger2:3.0.0")
+//	implementation("io.springfox:springfox-swagger-ui:3.0.0")
+//	implementation("io.springfox:springfox-bean-validators:3.0.0")
+
+
 
 
 
